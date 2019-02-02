@@ -38,7 +38,7 @@
                 <h1 class="text-center">Host</h1>
                 <div class="host-image"></div>
                 <h3>Name</h3>
-                <h5>{{ spot.users.firstName }} {{ spot.users.lastName }}</h5>
+                <h5>{{ spot.user.firstName }} {{ spot.user.lastName }}</h5>
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@
                     picture {
                       downloadUrl
                     }
-                    users {
+                    user {
                       firstName
                       lastName
                       avatar {

@@ -1,5 +1,8 @@
 <template>
     <div class="mt-5">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-spot-modal">
+            New Spot
+        </button>
         <div class="row">
             <div class="col-4">
                 <parking-spot class="mb-3" v-for="spot in spotsList.items" v-bind:key="spot.id" :data="spot"></parking-spot>
@@ -8,12 +11,14 @@
                 <router-view></router-view>
             </div>
         </div>
+        <create-spot-form @spotCreated="reloadSpots"></create-spot-form>
     </div>
 </template>
 
 <script>
     import gql from 'graphql-tag';
     import ParkingSpot from '@/components/ParkingSpot.vue'
+    import CreateSpotForm from '@/components/CreateSpotForm'
 
     export default {
         name: 'home',
@@ -21,7 +26,8 @@
 
         },
         components: {
-            ParkingSpot
+            ParkingSpot,
+            CreateSpotForm
         },
         apollo: {
             spotsList: {
@@ -37,7 +43,7 @@
                       }
                       price
                       id
-                      users {
+                      user {
                         firstName
                         lastName
                         email
@@ -53,7 +59,9 @@
             }
         },
         methods: {
-
+            reloadSpots: function() {
+                this.$apollo.queries.spotsList.refetch();
+            }
         }
     }
 </script>

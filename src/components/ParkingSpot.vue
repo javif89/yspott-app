@@ -1,7 +1,7 @@
 <template>
     <div class="card parking-spot">
         <div class="card-header text-left">
-            Parking Spot by: {{ data.users.firstName }} {{ data.users.lastName }}
+            Parking Spot by: {{ data.user.firstName }} {{ data.user.lastName }}
         </div>
         <div class="card-body">
             <div class="parking-spot-address text-left">
@@ -17,8 +17,6 @@
 </template>
 
 <script>
-    import gql from 'graphql-tag';
-
     export default {
         name: 'parking-spot',
         props: {
