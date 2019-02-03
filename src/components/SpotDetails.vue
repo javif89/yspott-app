@@ -64,6 +64,11 @@
                 spot: {}
             }
         },
+        watch: {
+            '$route' (to, from) {
+                this.$apollo.queries.spot.refetch();
+            }
+        },
         apollo: {
             spot: {
                 query: gql`query GetSpot($id:ID!) {

@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="col">
-                <!--<router-view></router-view>-->
+                <router-view></router-view>
                 <GmapMap
                         :center="cityLoc"
                         :zoom="12"
