@@ -8,7 +8,6 @@
                 <button class="btn btn-outline-dark btn-lg btn-block" id="search-button" @click="search">Search</button>
             </div>
         </div>
-        <h2>Parking spots in: {{ cityToSearch }}</h2>
         <div class="row">
             <div class="col-4">
                 <div v-if="spotsInArea">
@@ -19,12 +18,14 @@
                 </div>
             </div>
             <div class="col">
-                <router-view></router-view>
+                <div id="spot-details-container">
+                    <router-view></router-view>
+                </div>
                 <GmapMap
                         :center="cityLoc"
                         :zoom="12"
                         map-type-id="terrain"
-                        style="width: 100%; height: 700px"
+                        style="width: 100%; height: 900px"
                 >
                     <GmapMarker
                             :key="index"
@@ -196,5 +197,15 @@
         #search-button {
             font-size: 18px;
         }
+    }
+
+    #spot-details-container {
+        position: absolute;
+        max-width: 90%;
+        background: rgba(255,255,255,0.95);
+        z-index: 1051;
+        top: 80px;
+        left: 50px;
+        padding: 20px;
     }
 </style>

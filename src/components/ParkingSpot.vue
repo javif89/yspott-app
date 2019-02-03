@@ -7,7 +7,7 @@
                         <div class="street-line">{{ data.address.street1 }}<span v-if="data.address.street2">, {{ data.address.street2 }}</span></div>
                         <div class="city-state">{{ data.address.city }}, {{ data.address.state }}</div>
                         <div class="zip">{{ data.address.zip }}</div>
-                        <div class="pricing"> price: ${{data.price}}</div>
+                        <div class="pricing"> price: ${{data.price}}/hr</div>
                         <router-link class="btn btn-dark btn-block" :to="{ name: 'spot', params: {id: data.id} }">View</router-link>
                     </div>
                 </div>

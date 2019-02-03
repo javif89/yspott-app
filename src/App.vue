@@ -42,10 +42,22 @@
 <style lang="scss">
   @import url("https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css");
   @import url("https://use.fontawesome.com/releases/v5.7.1/css/all.css");
+  @import url("https://fonts.googleapis.com/css?family=Encode+Sans:100,100italic,300,300italic,200,200italic,600,600italic,400,400italic,900,900italic%7CExo:300,300italic,400,400italic");
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: 'Encode Sans';
+    font-weight: 100;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
+  }
+
+  .btn-dark:hover {
+    background-color: #FFBA49;
+    color: #FFFFFF;
+  }
+
+  .btn-dark {
+    background-color: #303B45;
+    border: none;
   }
 </style>

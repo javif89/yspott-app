@@ -1,5 +1,6 @@
 <template>
     <div class="container-fluid">
+        <router-link :to="{name: 'home'}" class="close">&times;</router-link>
         <div class="row">
             <div class="col">
                 <img v-if="spot.picture" :src="spot.picture.downloadUrl" alt="" class="img-fluid">
@@ -10,8 +11,19 @@
             </div>
         </div>
         <hr>
-        <div class="row">
-            <div class="col">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Summary</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">More info</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Bookings</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row mt-3">
                     <div class="col-4">
                         <h3>Address</h3>
@@ -45,7 +57,8 @@
                         </p>
                     </div>
                 </div>
-                <hr>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="row">
                     <div class="col d-flex flex-column justify-content-center">
                         <h4>Instant: <small>{{ spot.instant }}</small></h4>
@@ -56,48 +69,48 @@
                             {{ spot.rules }}
                         </p>
                     </div>
-                    <div class="col">
+                    <div class="col d-flex flex-column justify-content-center">
                         <h4>Special Features</h4>
                         <p class="lead">
                             {{ spot.specialFeatures }}
                         </p>
                     </div>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col">
-                        <div class="spot-time-picker">
-                            <div class="row">
-                                <div class="col">
-                                    <button class="btn btn-outline-dark" @click="hoursWanted-=1"> < </button>
-                                    <input type="number" class="number" v-model="hoursWanted">
-                                    <button class="btn btn-outline-dark" @click="hoursWanted+=1"> > </button>
-                                </div>
-                                <div class="col">
-                                    <h5 class="text-left font-weight-bold">Rate: <small>{{ spot.price }}/hr</small></h5>
-                                    <h4 class="font-weight-bold">Total: <small>${{ hoursWanted*spot.price }}</small></h4>
-                                </div>
+            </div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <h4>Bookings</h4>
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item" v-for="(booking, index) in spot.bookings.items">
+                        <div class="row">
+                            <div class="col-2" v-if="booking.user.avatar">
+                                <img :src="booking.user.avatar.downloadUrl" alt="" class="img-fluid">
+                            </div>
+                            <div class="col d-flex flex-column justify-content-center">
+                                <h4>{{ booking.user.firstName }} {{ booking.user.lastName }}</h4>
+                                <h5>{{ booking.duration }} Hour(s)</h5>
                             </div>
                         </div>
                     </div>
-                    <div class="col d-flex flex-column justify-content-center">
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <div class="row spot-time-picker text-center">
+                    <div class="col">
+                        <button class="btn btn-outline-dark" @click="hoursWanted-=1"> < </button>
+                        <input type="number" class="number" v-model="hoursWanted">
+                        <button class="btn btn-outline-dark" @click="hoursWanted+=1"> > </button>
+                    </div>
+                    <div class="col text-center">
+                        <h5>Rate: <small class="font-weight-bold">{{ spot.price }}/hr</small></h5>
+                        <h4>Total: <small class="font-weight-bold">${{ hoursWanted*spot.price }}</small></h4>
+                    </div>
+                    <div class="col-6">
                         <button class="btn btn-dark btn-lg btn-block" @click="spotMe">Spot It</button>
                     </div>
                 </div>
-                <!--<h4>Bookings</h4>-->
-                <!--<div class="list-group list-group-flush">-->
-                    <!--<div class="list-group-item" v-for="(booking, index) in spot.bookings.items">-->
-                        <!--<div class="row">-->
-                            <!--<div class="col" v-if="booking.user.avatar">-->
-                                <!--<img :src="booking.user.avatar.downloadUrl" alt="" class="img-fluid">-->
-                            <!--</div>-->
-                            <!--<div class="col d-flex flex-column justify-content-center">-->
-                                <!--<h4>{{ booking.user.firstName }} {{ booking.user.lastName }}</h4>-->
-                                <!--<h5>{{ booking.duration }} Hour(s)</h5>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
             </div>
         </div>
         <booking-confirmation :spot="spot" :duration="hoursWanted"></booking-confirmation>
