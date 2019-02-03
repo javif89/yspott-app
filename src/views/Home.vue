@@ -1,17 +1,13 @@
 <template>
-    <div class="mt-1">
-        <div class="row">
-            <div class="col-6">
-                <label for="">City</label>
-                <div class="form-inline">
-                    <input type="text" v-model="cityToSearch" class="form-control">
-                    <button class="btn btn-outline-dark" @click="search">Search</button>
-                </div>
+    <div>
+        <div class="search-container form-group row mt-1">
+            <div class="col-10">
+                <input type="text" v-model="cityToSearch" class="form-control" id="search-bar">
+            </div>
+            <div class="col-2">
+                <button class="btn btn-outline-dark btn-lg btn-block" id="search-button" @click="search">Search</button>
             </div>
         </div>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-spot-modal">
-            New Spot
-        </button>
         <h2>Parking spots in: {{ cityToSearch }}</h2>
         <div class="row">
             <div class="col-4">
@@ -179,5 +175,23 @@
 </script>
 
 <style lang="scss">
+    .search-container {
 
+        .content {
+            margin: auto;
+            width: 50%;
+        }
+
+        #search-bar {
+            font-size: 28px;
+            border: none;
+            font-weight: bold;
+            border-bottom: 1px solid #333;
+            border-radius: 0;
+        }
+
+        #search-button {
+            font-size: 18px;
+        }
+    }
 </style>
