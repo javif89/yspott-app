@@ -1,64 +1,103 @@
 <template>
-    <div class="container text-left">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
                 <img v-if="spot.picture" :src="spot.picture.downloadUrl" alt="" class="img-fluid">
-                <button class="btn btn-outline-dark" @click="spotMe">Spot It</button>
-                <h3>Address</h3>
-                <div class="parking-spot-address text-left">
-                    <div class="street-line">{{ spot.address.street1 }}<span v-if="spot.address.street2">, {{ spot.address.street2 }}</span></div>
-                    <div class="city-state">{{ spot.address.city }}, {{ spot.address.state }}</div>
-                    <div class="zip">{{ spot.address.zip }}</div>
-                </div>
-                <h3>Description</h3>
-                <p class="lead">
-                    {{ spot.description }}
-                </p>
-                <h3>Instant</h3>
-                <p class="lead">
-                    {{ spot.instant }}
-                </p>
-                <h3>Rules</h3>
-                <p class="lead">
-                    {{ spot.rules }}
-                </p>
-                <h3>Special Features</h3>
-                <p class="lead">
-                    {{ spot.specialFeatures }}
-                </p>
-                <h2>Availability</h2>
-                <div class="row">
-                    <div class="col">
-                        <h3>From</h3>
-                        <p class="lead">
-                            {{ spot.available_start | moment("h:mm:ss a") }}
-                        </p>
-                    </div>
-                    <div class="col">
-                        <h3>To</h3>
-                        <p class="lead">
-                            {{ spot.available_end | moment("h:mm:ss a") }}
-                        </p>
-                    </div>
-                </div>
-                <div class="spot-time-picker">
-                    <div class="row">
-                        <div class="col">
-                            <button class="btn btn-outline-dark" @click="hoursWanted-=1"> < </button>
-                            <input type="number" class="number" v-model="hoursWanted">
-                            <button class="btn btn-outline-dark" @click="hoursWanted+=1"> > </button>
-                        </div>
-                        <div class="col">
-                            <h3 class="text-left font-weight-bold">Rate: {{ spot.price }}/hr Total: ${{ hoursWanted*spot.price }}</h3>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="col">
-                <h1 class="text-center">Host</h1>
-                <div class="host-image"></div>
-                <h3>Name</h3>
-                <h5>{{ spot.user.firstName }} {{ spot.user.lastName }}</h5>
+                <div class="host-image" :style="{ backgroundImage: 'url(' + spot.user.avatar.downloadUrl + ')' }"></div>
+                <h3 class="text-center mt-2">{{ spot.user.firstName }} {{ spot.user.lastName }}</h3>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <h3>Address</h3>
+                        <div class="parking-spot-address text-left">
+                            <div class="street-line">{{ spot.address.street1 }}<span v-if="spot.address.street2">, {{ spot.address.street2 }}</span></div>
+                            <div class="city-state">{{ spot.address.city }}, {{ spot.address.state }}</div>
+                            <div class="zip">{{ spot.address.zip }}</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h4>Availability</h4>
+                        <div class="row">
+                            <div class="col">
+                                <h5>From</h5>
+                                <p class="lead">
+                                    {{ spot.available_start | moment("h:mm:ss a") }}
+                                </p>
+                            </div>
+                            <div class="col">
+                                <h5>To</h5>
+                                <p class="lead">
+                                    {{ spot.available_end | moment("h:mm:ss a") }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h4>Description</h4>
+                        <p class="lead">
+                            {{ spot.description }}
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col d-flex flex-column justify-content-center">
+                        <h4>Instant: <small>{{ spot.instant }}</small></h4>
+                    </div>
+                    <div class="col">
+                        <h4>Rules</h4>
+                        <p class="lead">
+                            {{ spot.rules }}
+                        </p>
+                    </div>
+                    <div class="col">
+                        <h4>Special Features</h4>
+                        <p class="lead">
+                            {{ spot.specialFeatures }}
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <div class="spot-time-picker">
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-outline-dark" @click="hoursWanted-=1"> < </button>
+                                    <input type="number" class="number" v-model="hoursWanted">
+                                    <button class="btn btn-outline-dark" @click="hoursWanted+=1"> > </button>
+                                </div>
+                                <div class="col">
+                                    <h5 class="text-left font-weight-bold">Rate: <small>{{ spot.price }}/hr</small></h5>
+                                    <h4 class="font-weight-bold">Total: <small>${{ hoursWanted*spot.price }}</small></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col d-flex flex-column justify-content-center">
+                        <button class="btn btn-dark btn-lg btn-block" @click="spotMe">Spot It</button>
+                    </div>
+                </div>
+                <!--<h4>Bookings</h4>-->
+                <!--<div class="list-group list-group-flush">-->
+                    <!--<div class="list-group-item" v-for="(booking, index) in spot.bookings.items">-->
+                        <!--<div class="row">-->
+                            <!--<div class="col" v-if="booking.user.avatar">-->
+                                <!--<img :src="booking.user.avatar.downloadUrl" alt="" class="img-fluid">-->
+                            <!--</div>-->
+                            <!--<div class="col d-flex flex-column justify-content-center">-->
+                                <!--<h4>{{ booking.user.firstName }} {{ booking.user.lastName }}</h4>-->
+                                <!--<h5>{{ booking.duration }} Hour(s)</h5>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
         </div>
         <booking-confirmation :spot="spot" :duration="hoursWanted"></booking-confirmation>
@@ -117,6 +156,18 @@
                         downloadUrl
                       }
                     }
+                    bookings {
+                      items {
+                        duration
+                        user {
+                          firstName
+                          lastName
+                          avatar {
+                            downloadUrl
+                          }
+                        }
+                      }
+                    }
                   }
                 }`,
                 variables() {
@@ -125,9 +176,6 @@
                     }
                 }
             }
-        },
-        mounted() {
-            this.spotMe();
         },
         methods: {
             spotMe: function () {
@@ -141,8 +189,8 @@
 
 <style lang="scss">
     .host-image {
-        width: 300px;
-        height: 300px;
+        width: 250px;
+        height: 250px;
         background: url("https://cdn.filestackcontent.com/security=p:eyJjYWxsIjpbInJlYWQiLCJjb252ZXJ0Il0sImV4cGlyeSI6MTU0OTEzMzQ5NDk0OSwiaGFuZGxlIjoiSDVpUnFCUjF5TU9zVkVleHBpakEifQ==,s:4f364b60ecbcfa254ed65229e99b9dac7903cc57b03ac554d739e0d4506f6388/H5iRqBR1yMOsVEexpijA");
         background-position: center;
         border-radius: 50%;

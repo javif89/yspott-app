@@ -1,19 +1,20 @@
 <template>
     <div class="card parking-spot">
-        <div class="card-header text-left">
-            Parking Spot by: {{ data.user.firstName }} {{ data.user.lastName }}
-        </div>
         <div class="card-body">
-            <div class="parking-spot-address text-left">
-                <div class="host-image"></div>
-                <div class="street-line">{{ data.address.street1 }}<span v-if="data.address.street2">, {{ data.address.street2 }}</span></div>
-                <div class="city-state">{{ data.address.city }}, {{ data.address.state }}</div>
-                <div class="zip">{{ data.address.zip }}</div>
-                <div class="pricing"> price: ${{data.price}}</div>
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex flex-column justify-content-between parking-spot-address text-left">
+                        <div class="street-line">{{ data.address.street1 }}<span v-if="data.address.street2">, {{ data.address.street2 }}</span></div>
+                        <div class="city-state">{{ data.address.city }}, {{ data.address.state }}</div>
+                        <div class="zip">{{ data.address.zip }}</div>
+                        <div class="pricing"> price: ${{data.price}}</div>
+                        <router-link class="btn btn-dark btn-block" :to="{ name: 'spot', params: {id: data.id} }">View</router-link>
+                    </div>
+                </div>
+                <div v-if="data.picture" class="col-6 d-flex flex-column justify-content-center">
+                    <img :src="data.picture.downloadUrl" alt="" class="img-fluid">
+                </div>
             </div>
-        </div>
-        <div class="card-footer">
-            <router-link class="btn btn-dark btn-block" :to="{ name: 'spot', params: {id: data.id} }">View</router-link>
         </div>
     </div>
 </template>

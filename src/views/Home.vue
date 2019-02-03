@@ -79,6 +79,9 @@
                         }
                         price
                         id
+                        picture {
+                            downloadUrl
+                        }
                         user {
                           firstName
                           lastName
