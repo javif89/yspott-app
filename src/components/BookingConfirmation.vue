@@ -53,7 +53,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" :disabled="!agreed">
+                    <button type="button" class="btn btn-primary" :disabled="!agreed" @click="createBooking">
                         <span v-if="!$apollo.loading">Spott It</span>
                         <span v-if="$apollo.loading">Loading...</span>
                     </button>
@@ -64,6 +64,9 @@
 </template>
 
 <script>
+    import gql from 'graphql-tag'
+    import $ from 'jquery'
+
     export default {
         name: 'booking-confirmation',
         props: ['duration','spot'],
@@ -73,7 +76,39 @@
             }
         },
         methods: {
+            createBooking() {
+                console.log(`spotID: ${this.spot}`)
+                const model = {
+                    duration: this.duration,
+                    spot: {
+                        connect: {
+                            id: this.spot.id
+                        }
+                    },
+                    user: {
+                        connect: {
+                            id: "cjrn33mil003401qrv0fzgz55"
+                        }
+                    }
+                }
 
+                console.log(model);
+                this.$apollo.mutate({
+                    // Query
+                    mutation: gql`mutation AddBooking($data: BookingCreateInput!) {
+                      bookingCreate(data: $data) {
+                        id
+                      }
+                    }`,
+                    // Parameters
+                    variables: {
+                        data: model,
+                    }
+                }).then(function () {
+                    $("#booking-confirmation").modal('toggle');
+                    this.$emit('bookingCreated');
+                }.bind(this));
+            }
         }
     }
 </script>

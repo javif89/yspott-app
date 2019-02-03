@@ -113,7 +113,7 @@
                 </div>
             </div>
         </div>
-        <booking-confirmation :spot="spot" :duration="hoursWanted"></booking-confirmation>
+        <booking-confirmation v-on:bookingCreated="updateDetails" :spot="spot" :duration="hoursWanted"></booking-confirmation>
     </div>
 </template>
 
@@ -152,6 +152,7 @@
                       state
                       zip
                     }
+                    id
                     price
                     available_start
                     available_end
@@ -169,7 +170,7 @@
                         downloadUrl
                       }
                     }
-                    bookings {
+                    bookings(orderBy:createdAt_DESC) {
                       items {
                         duration
                         user {
@@ -195,6 +196,9 @@
                 $(document).ready(function() {
                     $('#booking-confirmation').modal('show');
                 });
+            },
+            updateDetails: function () {
+                this.$apollo.queries.spot.refetch();
             }
         }
     }

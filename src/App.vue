@@ -4,7 +4,7 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <router-link class="navbar-brand" to="/miami">Yspott</router-link>
+      <a href="https://yspott-home.firebaseapp.com" class="navbar-brand">Yspott</a>
       <div class="collapse navbar-collapse mr-auto" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
