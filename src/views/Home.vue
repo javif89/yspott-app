@@ -203,9 +203,9 @@
         position: absolute;
         max-width: 90%;
         background: rgba(255,255,255,0.95);
-        z-index: 1051;
         top: 80px;
         left: 50px;
         padding: 20px;
+        z-index: 9999;
     }
 </style>

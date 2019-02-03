@@ -8,14 +8,14 @@
       <div class="collapse navbar-collapse mr-auto" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a style="cursor: pointer;" data-toggle="modal" data-target="#add-spot-modal" class="nav-link">List My Spot</a>
+
           </li>
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item active">
             <a class="nav-link" href="#">Park With Us <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item"><a href="" class="nav-link">Be a Host</a></li>
+          <a style="cursor: pointer;" data-toggle="modal" data-target="#add-spot-modal" class="nav-link">List My Spot</a>
           <li class="nav-item">
             <a class="nav-link" href="#">Login/Sign Up</a>
           </li>

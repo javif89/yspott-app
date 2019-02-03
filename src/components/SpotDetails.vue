@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid" id="spot-details">
         <router-link :to="{name: 'home'}" class="close">&times;</router-link>
         <div class="row">
             <div class="col">
