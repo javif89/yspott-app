@@ -88,24 +88,6 @@
             </div>
         </div>
     </div>
-<!--
-address {
-      street1
-      street2
-      city
-      state
-      zip
-    }
-    available_start
-    available_end
-    instant
-    description
-    rules
-    specialFeatures
-    picture {
-      downloadUrl
-    }
-    -->
 </template>
 
 <script>

@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col">
                 <img v-if="spot.picture" :src="spot.picture.downloadUrl" alt="" class="img-fluid">
+                <button class="btn btn-outline-dark" @click="spotMe">Spot It</button>
                 <h3>Address</h3>
                 <div class="parking-spot-address text-left">
                     <div class="street-line">{{ spot.address.street1 }}<span v-if="spot.address.street2">, {{ spot.address.street2 }}</span></div>
@@ -60,11 +61,14 @@
                 <h5>{{ spot.user.firstName }} {{ spot.user.lastName }}</h5>
             </div>
         </div>
+        <booking-confirmation :spot="spot" :duration="hoursWanted"></booking-confirmation>
     </div>
 </template>
 
 <script>
     import gql from 'graphql-tag';
+    import BookingConfirmation from '@/components/BookingConfirmation.vue';
+    import $ from 'jquery';
 
     export default {
         name: 'spot-details',
@@ -75,6 +79,9 @@
                 spot: {},
                 hoursWanted: 1
             }
+        },
+        components: {
+            BookingConfirmation
         },
         watch: {
             '$route' (to, from) {
@@ -119,8 +126,15 @@
                 }
             }
         },
+        mounted() {
+            this.spotMe();
+        },
         methods: {
-
+            spotMe: function () {
+                $(document).ready(function() {
+                    $('#booking-confirmation').modal('show');
+                });
+            }
         }
     }
 </script>
