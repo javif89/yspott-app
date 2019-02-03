@@ -40,6 +40,18 @@
                         </p>
                     </div>
                 </div>
+                <div class="spot-time-picker">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-outline-dark" @click="hoursWanted-=1"> < </button>
+                            <input type="number" class="number" v-model="hoursWanted">
+                            <button class="btn btn-outline-dark" @click="hoursWanted+=1"> > </button>
+                        </div>
+                        <div class="col">
+                            <h3 class="text-left font-weight-bold">Rate: {{ spot.price }}/hr Total: ${{ hoursWanted*spot.price }}</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col">
                 <h1 class="text-center">Host</h1>
@@ -60,7 +72,8 @@
         },
         data: function() {
             return {
-                spot: {}
+                spot: {},
+                hoursWanted: 1
             }
         },
         watch: {
@@ -80,6 +93,7 @@
                       state
                       zip
                     }
+                    price
                     available_start
                     available_end
                     instant
@@ -119,5 +133,25 @@
         background-position: center;
         border-radius: 50%;
         margin: auto;
+    }
+
+    .spot-time-picker {
+        .number {
+            width: 60px;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
     }
 </style>
