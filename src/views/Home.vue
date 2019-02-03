@@ -13,10 +13,14 @@
             New Spot
         </button>
         <h2>Parking spots in: {{ cityToSearch }}</h2>
-        <h2>Loc: {{ cityLoc }}</h2>
         <div class="row">
             <div class="col-4">
-                <parking-spot class="mb-3" v-for="spot in spotsList.items" v-bind:key="spot.id" :data="spot"></parking-spot>
+                <div v-if="spotsInArea">
+                    <parking-spot class="mb-3" v-for="spot in spotsList.items" v-bind:key="spot.id" :data="spot"></parking-spot>
+                </div>
+                <div v-if="!spotsInArea">
+                    <p class="lead text-muted">Sorry, there are no spots in this area :(</p>
+                </div>
             </div>
             <div class="col">
                 <!--<router-view></router-view>-->
@@ -88,8 +92,9 @@
                     }
                   }`,
                 variables() {
+                    let city = _.capitalize(_.toLower(this.cityToSearch));
                     return {
-                        city: this.cityToSearch
+                        city: city
                     }
                 }
             }
@@ -97,17 +102,36 @@
         data() {
             return {
                 spotsList: [],
-                cityToSearch: 'Miami',
-                cityLoc: {lat: 20, lng: 20}
+                cityToSearch: 'miami',
+                cityLoc: {lat: 25.758131, lng: -80.3031819}
             }
         },
         created() {
             this.debounceSearch = _.debounce(this.search, 500)
         },
+        mounted() {
+            if(this.$route.params.city) {
+                this.cityToSearch = this.$route.params.city;
+                this.search()
+            }
+        },
         watch: {
             cityToSearch: function (newCity, oldCity) {
                 console.log(newCity)
                 this.debounceSearch();
+            },
+            '$route' (to, from) {
+                this.cityToSearch = this.$route.params.city;
+            }
+        },
+        computed: {
+            spotsInArea() {
+                if(this.spotsList.items) {
+                    return this.spotsList.items.length > 0;
+                }
+                else {
+                    return false;
+                }
             }
         },
         methods: {
@@ -115,8 +139,10 @@
                 this.$apollo.queries.spotsList.refetch();
             },
             search: function () {
+                let city = _.capitalize(_.toLower(this.cityToSearch));
+                console.log(`City is: ${city}`)
                 googleMapsClient.geocode({
-                    address: this.cityToSearch
+                    address: city
                 }, function(err, response) {
                     if (!err) {
                         let location = response.json.results[0].geometry.location;
@@ -127,6 +153,9 @@
                 this.positionSpots();
             },
             positionSpots() {
+                if(!this.spotsList.items)
+                    return
+
                 this.spotsList.items.forEach((spot) => {
                     let address = `${spot.address.street1}, ${spot.address.city}, ${spot.address.state}, ${spot.address.zip}`
                     console.log(address);
