@@ -1,5 +1,6 @@
 <template>
     <div class="container text-left">
+        <button class="btn btn-dark btn-lg" @click="maps">Butt</button>
         <div class="row">
             <div class="col">
                 <img v-if="spot.picture" :src="spot.picture.downloadUrl" alt="" class="img-fluid">
@@ -25,14 +26,21 @@
                 <p class="lead">
                     {{ spot.specialFeatures }}
                 </p>
-                <h3>available_start</h3>
-                <p class="lead">
-                    {{ spot.available_start }}
-                </p>
-                <h3>available_end</h3>
-                <p class="lead">
-                    {{ spot.available_end }}
-                </p>
+                <h2>Availability</h2>
+                <div class="row">
+                    <div class="col">
+                        <h3>From</h3>
+                        <p class="lead">
+                            {{ spot.available_start | moment("h:mm:ss a") }}
+                        </p>
+                    </div>
+                    <div class="col">
+                        <h3>To</h3>
+                        <p class="lead">
+                            {{ spot.available_end | moment("h:mm:ss a") }}
+                        </p>
+                    </div>
+                </div>
             </div>
             <div class="col">
                 <h1 class="text-center">Host</h1>
