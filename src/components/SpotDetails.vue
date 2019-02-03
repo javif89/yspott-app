@@ -1,6 +1,5 @@
 <template>
     <div class="container text-left">
-        <button class="btn btn-dark btn-lg" @click="maps">Butt</button>
         <div class="row">
             <div class="col">
                 <img v-if="spot.picture" :src="spot.picture.downloadUrl" alt="" class="img-fluid">
@@ -67,6 +66,7 @@
         watch: {
             '$route' (to, from) {
                 this.$apollo.queries.spot.refetch();
+                console.log(this.$route.params.id)
             }
         },
         apollo: {
