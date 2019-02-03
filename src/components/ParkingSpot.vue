@@ -5,9 +5,11 @@
         </div>
         <div class="card-body">
             <div class="parking-spot-address text-left">
+                <div class="host-image"></div>
                 <div class="street-line">{{ data.address.street1 }}<span v-if="data.address.street2">, {{ data.address.street2 }}</span></div>
                 <div class="city-state">{{ data.address.city }}, {{ data.address.state }}</div>
                 <div class="zip">{{ data.address.zip }}</div>
+                <div class="pricing"> price: ${{data.price}}</div>
             </div>
         </div>
         <div class="card-footer">
