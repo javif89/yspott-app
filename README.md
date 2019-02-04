@@ -1,5 +1,9 @@
 # yspott-app
 
+Initial code for yspott made at mangohacks.
+
+Running on vuejs using [vue-apollo](https://vue-apollo.netlify.com/) and 8base back-end.
+
 ## Project setup
 ```
 npm install
