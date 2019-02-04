@@ -2,7 +2,7 @@
 
 Initial code for yspott made at mangohacks.
 
-Running on vuejs using [vue-apollo](https://vue-apollo.netlify.com/) and 8base back-end.
+Running on vuejs using [vue-apollo](https://vue-apollo.netlify.com/) and [8base](https://www.8base.com/) back-end.
 
 ## Project setup
 ```
